@@ -8,6 +8,7 @@ import { PiNewspaper } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx"; 
 import { MdCancel } from "react-icons/md";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export const ChatIcon = (props) => {
  
@@ -97,12 +98,35 @@ export const ItemCounter = ({number}) => (
 );
 
 export default function AdminNavBar({isOpen,closeSlideBar}) {
+  const [isSmallDevice, setIsSmallDevice] = useState(false);
+
+  useEffect(() => {
+    // Define the media query for small devices (e.g., below md = 768px)
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+    // Set initial value
+    setIsSmallDevice(mediaQuery.matches);
+
+    // Handler to update state on resize
+    const handler = (event) => setIsSmallDevice(event.matches);
+
+    // Attach listener
+    mediaQuery.addEventListener("change", handler);
+
+    // Cleanup
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
+  const handleClick = () => {
+    if (isSmallDevice) {
+      closeSlideBar();
+    }}
  
   return (<div className={`${!isOpen&&'hidden'} md:block  h-screen gap-0 divide-y divide-default-300/50 dark:divide-default-100/80 bg-content1  w-full md:w-[300px] overflow-visible  rounded-medium`}>
   <div className="p-2"><MdCancel size={22} onClick={closeSlideBar} color="orange" className=" md:hidden ml-[94%] m-3 "/></div> 
-  <div className="md:mt-[10%] md:ml-[15%]] ml-[30%]"><Image src="/Digital Wallet.png"
-      width={150}
-      height={150}
+  <div className="md:mt-[10%] md:ml-[15%]] ml-[40%]"><Image src="/Digital Wallet.png"
+      width={80}
+      height={80}
       alt="Picture of the author"/></div>
     <Listbox
       aria-label="User Menu"
@@ -112,8 +136,10 @@ export default function AdminNavBar({isOpen,closeSlideBar}) {
       }}
       
     >
-      <ListboxItem href="/admin"
+      <ListboxItem 
       as={Link}
+      href="/admin"
+      onClick={handleClick}
         key="overview"
         endContent={<ItemCounter number={13} />}
         startContent={
@@ -125,6 +151,9 @@ export default function AdminNavBar({isOpen,closeSlideBar}) {
         OverView
       </ListboxItem>
       <ListboxItem
+      as={Link}
+      href="/admin/verifykyc"
+      onClick={handleClick}
         key="verifykyc"
         endContent={<ItemCounter number={13} />}
         startContent={
@@ -136,6 +165,10 @@ export default function AdminNavBar({isOpen,closeSlideBar}) {
         Verify KYC
       </ListboxItem>
       <ListboxItem
+      as={Link}
+      href="/admin/addnotice"
+      onClick={handleClick}
+      
         key="addnotices"
         endContent={<ItemCounter number={6} />}
         startContent={
@@ -147,8 +180,11 @@ export default function AdminNavBar({isOpen,closeSlideBar}) {
         Add Notices
       </ListboxItem>
       <ListboxItem
+      as={Link}
+      href="/admin/manageuser"
+      onClick={handleClick}
+      
         key="manageuser"
-        href="/admin/manageuser"
         endContent={<ItemCounter number={293} />}
         startContent={
           <IconWrapper className="bg-secondary/10 text-secondary">
@@ -159,6 +195,10 @@ export default function AdminNavBar({isOpen,closeSlideBar}) {
         Manage User
       </ListboxItem>
       <ListboxItem
+      as={Link}
+      href="/admin/profile"
+      
+      onClick={handleClick}
         key="profile"
         endContent={<ItemCounter number={2} />}
         startContent={
@@ -170,6 +210,10 @@ export default function AdminNavBar({isOpen,closeSlideBar}) {
         Profile
       </ListboxItem>
       <ListboxItem
+      as={Link}
+      href="/admin/setting"
+      onClick={closeSlideBar}
+      
         key="seetings"
         endContent={<ItemCounter number={4} />}
         startContent={
@@ -180,29 +224,11 @@ export default function AdminNavBar({isOpen,closeSlideBar}) {
       >
         Settings
       </ListboxItem>
-      <ListboxItem
-        key="releases"
-        className="group h-auto py-3"
-        endContent={<ItemCounter number={399} />}
-        startContent={
-          <IconWrapper className="bg-primary/10 text-primary">
-            <TagIcon className="text-lg" />
-          </IconWrapper>
-        }
-        textValue="Releases"
-      >
-        <div className="flex flex-col gap-1">
-          <span>Releases</span>
-          <div className="px-2 py-1 rounded-small bg-default-100 group-data-[hover=true]:bg-default-200">
-            <span className="text-tiny text-default-600">@heroui/react@2.0.10</span>
-            <div className="flex gap-2 text-tiny">
-              <span className="text-default-500">49 minutes ago</span>
-              <span className="text-success">Latest</span>
-            </div>
-          </div>
-        </div>
-      </ListboxItem>
-      <ListboxItem
+      <ListboxItem 
+       as={Link}
+      href="/admin/liscence"
+     
+      onClick={handleClick}
         key="license"
         endContent={<span className="text-small text-default-400">MIT</span>}
         startContent={

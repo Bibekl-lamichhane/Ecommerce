@@ -129,10 +129,10 @@ export const EyeIcon = (props) => {
       aria-hidden="true"
       fill="none"
       focusable="false"
-      height="1em"
+      height="1.25rem"
       role="presentation"
       viewBox="0 0 20 20"
-      width="1em"
+      width="1.25rem"
       {...props}
     >
       <path
@@ -159,10 +159,10 @@ export const DeleteIcon = (props) => {
       aria-hidden="true"
       fill="none"
       focusable="false"
-      height="1em"
+      height="1.25rem"
       role="presentation"
       viewBox="0 0 20 20"
-      width="1em"
+      width="1.25rem"
       {...props}
     >
       <path
@@ -210,10 +210,10 @@ export const EditIcon = (props) => {
       aria-hidden="true"
       fill="none"
       focusable="false"
-      height="1em"
+      height="1.25rem"
       role="presentation"
       viewBox="0 0 20 20"
-      width="1em"
+      width="1.25rem"
       {...props}
     >
       <path
@@ -280,7 +280,7 @@ export default function page() {
         );
       case "actions":
         return (
-          <div className="relative flex items-center gap-2 md:gap-11 md:ml-30">
+          <div className="relative flex items-center  gap-6 md:gap-11 md:ml-30">
             <Tooltip content="Details">
               <span className=" text:xs md:text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EyeIcon />
